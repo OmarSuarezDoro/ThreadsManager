@@ -38,10 +38,9 @@ ThreadsManager::ThreadsManager(bool silence_execution) {
 
 template<typename T, typename... Args> 
 void ThreadsManager::AddThread(T function, Args... args) {
+  std::cout << PrintMessage(PERFECT, "A new thread was successfully created.")  << std::endl;
   std::thread new_thread(function, args...);
-  thread_map_.emplace(new_thread.get_id(), new_thread);
-  new_thread.detach();
-  std::cout << PrintMessage(PERFECT, "A new thread was successfully created with id: " + std::string(new_thread.get_id())) << std::endl;
+  new_thread.join();
+  thread_map_.emplace(new_thread.get_id(), std::move(new_thread));
+  std::cout << thread_map_.count(new_thread.get_id()) << std::endl;
 }
-
-

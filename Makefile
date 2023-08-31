@@ -6,12 +6,12 @@ CXX = g++
 CXXFLAGS = -std=c++2a -g -Wall -pedantic
 LDFLAGS = # The linker options (if any)		
 
-.PHONY: server_exec clean
+.PHONY: client_exec clean
 	
-server_exec : ClientMain.o src/ThreadsManager.o
+client_exec : ClientMain.o src/ThreadsManager.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 clean:
-	@ rm -f *.o server_exec
+	@ rm -f *.o client_exec
 	@ rm -f src/*.o
 
 # The $@ and $< are called automatic variables. The variable $@ represents the name 
